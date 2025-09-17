@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+torch
+transformers
+pillow
+opencv-python
+pytesseract
+numpy
+requests
