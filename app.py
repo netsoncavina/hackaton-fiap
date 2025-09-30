@@ -106,7 +106,7 @@ def severity_for(threat: str, exposed: bool = False) -> str:
             return "Critical"
     return sev
 
-
+# Mapeia sinônimos e abreviações para nomes canônicos.
 def fuzzy_to_canonical(text: str):
     if not text:
         return None
@@ -119,14 +119,11 @@ def fuzzy_to_canonical(text: str):
         return best[0]
     return None
 
-
+# Converte bytes da imagem em array NumPy para processamento com OpenCV.
 def read_imagefile(file_bytes) -> np.ndarray:
     image = Image.open(io.BytesIO(file_bytes)).convert("RGB")
     return cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
 
-# ---------------------------
-# OCR & detection helpers
-# ---------------------------
 def detect_texts_and_labels(img: np.ndarray):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     data = pytesseract.image_to_data(gray, output_type=pytesseract.Output.DICT)
@@ -237,7 +234,7 @@ def call_gemini_polish_raw(findings_json: dict, timeout: int = 30) -> dict:
 
     prompt = (
         "Você é um especialista sênior em segurança da informação e arquitetura de sistemas. "
-        "Analise o JSON de evidências abaixo e gere um relatório STRIDE COMPLETO e TÉCNICO em PORTUGUÊS BRASILEIRO.\n\n"
+        "Analise o JSON de evidências abaixo e gere um relatório STRIDE COMPLETO e TÉCNICO.\n\n"
 
         "Para CADA componente identificado, você DEVE incluir:\n\n"
 
